@@ -86,31 +86,19 @@
       display: block;
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 20px;
-      height: 70vh;
-    }
-
-    .dashboard-card {
+    .portfolio-card {
       background-color: #2a2a2a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-      font-size: 20px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      font-size: 18px;
       font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease, background-color 0.3s ease;
-      cursor: pointer;
-      min-height: 100px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.2s ease;
     }
 
-    .dashboard-card:hover {
+    .portfolio-card:hover {
       background-color: #3c3c3c;
-      transform: scale(1.02);
     }
   </style>
 </head>
@@ -128,8 +116,7 @@
   <div id="main">
     <aside id="sidebar">
       <h1>🏢 ImmoShare</h1>
-      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/dashboard'">🏠 Dashboard</button>
-      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/portfolio'">📈 Portfolio</button>
+      <button class="menu-button" onclick="showPanel('portfolio')">📈 Portfolio</button>
       <button class="menu-button" onclick="showPanel('immobilien')">🏢 Immobilien</button>
       <button class="menu-button" onclick="showPanel('statistiken')">📊 Statistiken</button>
       <button class="menu-button" onclick="showPanel('rechner')">💰 Rechner</button>
@@ -152,35 +139,6 @@
         <div class="portfolio-card">🏢9</div>
         <div class="portfolio-card">🏢10</div>
       </div>
-
-      <div id="dashboard" class="panel">
-        <h2>🏠 Dashboard</h2>
-        <p>Dashboard-Inhalte erscheinen hier.</p>
-      </div>
-      <div id="immobilien" class="panel">
-        <h2>🏢 Immobilien</h2>
-        <p>Immobilien-Verwaltung folgt...</p>
-      </div>
-      <div id="statistiken" class="panel">
-        <h2>📊 Statistiken</h2>
-        <p>Statistiken werden hier angezeigt.</p>
-      </div>
-      <div id="rechner" class="panel">
-        <h2>💰 Rechner</h2>
-        <p>Rechner-Funktionalität folgt.</p>
-      </div>
-      <div id="termine" class="panel">
-        <h2>📅 Mitteilungen</h2>
-        <p>Mitteilungen und Termine erscheinen hier.</p>
-      </div>
-      <div id="vertraege" class="panel">
-        <h2>📃 Verträge</h2>
-        <p>Hier kannst du Verträge verwalten.</p>
-      </div>
-      <div id="einstellungen" class="panel">
-        <h2>⚙️ Einstellungen</h2>
-        <p>Einstellungen konfigurieren.</p>
-      </div>
     </main>
   </div>
 
@@ -189,10 +147,7 @@
       document.querySelectorAll('.panel').forEach(panel => {
         panel.classList.remove('active');
       });
-      const el = document.getElementById(id);
-      if (el) {
-        el.classList.add('active');
-      }
+      document.getElementById(id).classList.add('active');
     }
   </script>
 </body>
