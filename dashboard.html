@@ -21,23 +21,23 @@
 
     header {
       background-color: #2c2c2c;
-      padding: 10px 20px;
+      height: 36px; /* Kompakte Höhe */
+      padding: 4px 12px;
       display: flex;
       align-items: center;
-      gap: 30px;
+      justify-content: flex-start;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
-    header nav a {
+    #menu-toggle {
+      background: none;
+      border: none;
       color: white;
-      text-decoration: none;
-      margin-right: 15px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    header nav a:hover {
-      color: #4caf50;
+      font-size: 20px; /* Kleinere Größe */
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      margin: 0;
     }
 
     #main {
@@ -52,6 +52,7 @@
       padding: 20px 10px;
       overflow-y: auto;
       border-right: 1px solid #444;
+      transition: all 0.3s ease;
     }
 
     #sidebar h1 {
@@ -150,12 +151,7 @@
 <body>
 
   <header>
-    <nav>
-      <a href="#">📋 Menü</a>
-      <a href="#">🏢 Immobilien verwalten</a>
-      <a href="#" onclick="window.open('https://outlook.office.com')">📨 Outlook</a>
-      <a href="#">❓ Hilfe</a>
-    </nav>
+    <button id="menu-toggle">≡</button>
   </header>
 
   <div id="main">
@@ -203,6 +199,11 @@
         target.classList.add('active');
       }
     }
+
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.style.display = (sidebar.style.display === 'none' || sidebar.style.display === '') ? 'block' : 'none';
+    });
   </script>
 </body>
 </html>
