@@ -127,20 +127,81 @@
     </aside>
 
     <main id="content">
-      <div id="portfolio" class="panel active">
-        <h2>📈 Portfolio</h2>
-        <div class="portfolio-card">🏢1</div>
-        <div class="portfolio-card">🏢2</div>
-        <div class="portfolio-card">🏢3</div>
-        <div class="portfolio-card">🏢4</div>
-        <div class="portfolio-card">🏢5</div>
-        <div class="portfolio-card">🏢6</div>
-        <div class="portfolio-card">🏢7</div>
-        <div class="portfolio-card">🏢8</div>
-        <div class="portfolio-card">🏢9</div>
-        <div class="portfolio-card">🏢10</div>
+    
+    <style>
+    .portfolio-card {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .property-abbreviation {
+      font-size: 2rem;
+      margin-right: 15px;
+    }
+
+    .property-details {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 20px;
+    }
+
+    .detail {
+      display: flex;
+      align-items: center;
+    }
+
+    .detail strong {
+      margin-right: 5px;
+    }
+  </style>
+    
+  <div id="portfolio" class="panel active">
+    <h2>📈 Portfolio</h2>
+    <div class="portfolio-card">
+      <div class="property-abbreviation"></div>
+      <div class="property-details">
+        <p><strong>🏷️ SN01</strong></p>
+		<p><strong>🗓️ 13.04.2025</strong></p>
+		<p><strong>📊 100%</strong></p>
+		<p><strong>⏳ vermietet</strong></p>
+		<p><strong>🏦 3/300</strong></p>
+		<p><strong>🛒 65.000€</strong></p>
+		<p><strong>🪙 273,17€</strong></p>
+
       </div>
-    </main>
+    </div>
+    <div class="portfolio-card">
+      <div class="property-abbreviation"></div>
+      <div class="property-details">
+        <p><strong>🏷️ AN02</strong></p>
+		<p><strong>🗓️ 18.04.2025</strong></p>
+		<p><strong>📊 50%</strong></p>
+		<p><strong>⏳ in Renovierung</strong></p>
+		<p><strong>🏦 1/240</strong></p>
+		<p><strong>🛒 15.000€</strong></p>
+		<p><strong>🪙 2.426,65€</strong></p>
+      </div>
+    </div>
+    <!-- Die restlichen Karten (🏢3 bis 🏢10) bleiben unverändert -->
+    <div class="portfolio-card">
+      <div class="property-abbreviation"></div>
+      <div class="property-details">
+        <p><strong>🏷️ </strong></p>
+		<p><strong>🗓️ </strong></p>
+		<p><strong>📊 </strong></p>
+		<p><strong>⏳ </strong></p>
+		<p><strong>🏦 </strong></p>
+		<p><strong>🛒 </strong></p>
+		<p><strong>🪙 </strong></p>
+      </div>
+    </div>
+  </div>
+</main>
+
   </div>
 
   <script>
