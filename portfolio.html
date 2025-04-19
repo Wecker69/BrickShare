@@ -8,7 +8,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #1e1e1e;
       color: white;
       height: 100%;
@@ -20,11 +20,12 @@
     }
 
     header {
-      background-color: #323232;
+      background-color: #2c2c2c;
       padding: 10px 20px;
       display: flex;
       align-items: center;
       gap: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     header nav a {
@@ -32,6 +33,11 @@
       text-decoration: none;
       margin-right: 15px;
       font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover {
+      color: #4caf50;
     }
 
     #main {
@@ -49,9 +55,10 @@
     }
 
     #sidebar h1 {
-      font-size: 20px;
+      font-size: 22px;
       text-align: center;
       margin-bottom: 20px;
+      color: #4caf50;
     }
 
     .menu-button {
@@ -64,11 +71,13 @@
       margin-bottom: 10px;
       text-align: left;
       cursor: pointer;
-      border-radius: 5px;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     .menu-button:hover {
       background-color: #5c5c5c;
+      transform: translateX(3px);
     }
 
     #content {
@@ -84,6 +93,18 @@
 
     .panel.active {
       display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .portfolio-card {
@@ -96,7 +117,7 @@
       box-shadow: 0 1px 5px rgba(0,0,0,0.2);
       transition: background-color 0.2s ease;
       animation: flyInFromBottom 0.6s ease-out forwards;
-      opacity: 0; /* Start opacity auf 0 setzen */
+      opacity: 0;
     }
 
     .portfolio-card:hover {
@@ -160,48 +181,46 @@
     </aside>
 
     <main id="content">
-    
-    <div id="portfolio" class="panel active">
-      <h2>📈 Portfolio</h2>
-      <div class="portfolio-card">
-        <div class="property-abbreviation"></div>
-        <div class="property-details">
-          <p><strong>🏷️ SN01</strong></p>
-          <p><strong>🗓️ 13.04.2025</strong></p>
-          <p><strong>📊 100%</strong></p>
-          <p><strong>⏳ vermietet</strong></p>
-          <p><strong>🏦 3/300</strong></p>
-          <p><strong>🛒 65.000€</strong></p>
-          <p><strong>🪙 273,17€</strong></p>
+      <div id="portfolio" class="panel active">
+        <h2>📈 Portfolio</h2>
+        <div class="portfolio-card">
+          <div class="property-abbreviation"></div>
+          <div class="property-details">
+            <p><strong>🏷️ SN01</strong></p>
+            <p><strong>🗓️ 13.04.2025</strong></p>
+            <p><strong>📊 100%</strong></p>
+            <p><strong>⏳ vermietet</strong></p>
+            <p><strong>🏦 3/300</strong></p>
+            <p><strong>🛒 65.000€</strong></p>
+            <p><strong>🪙 273,17€</strong></p>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="property-abbreviation"></div>
+          <div class="property-details">
+            <p><strong>🏷️ AN02</strong></p>
+            <p><strong>🗓️ 18.04.2025</strong></p>
+            <p><strong>📊 50%</strong></p>
+            <p><strong>⏳ in Renovierung</strong></p>
+            <p><strong>🏦 1/240</strong></p>
+            <p><strong>🛒 15.000€</strong></p>
+            <p><strong>🪙 2.426,65€</strong></p>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="property-abbreviation"></div>
+          <div class="property-details">
+            <p><strong>🏷️ </strong></p>
+            <p><strong>🗓️ </strong></p>
+            <p><strong>📊 </strong></p>
+            <p><strong>⏳ </strong></p>
+            <p><strong>🏦 </strong></p>
+            <p><strong>🛒 </strong></p>
+            <p><strong>🪙 </strong></p>
+          </div>
         </div>
       </div>
-      <div class="portfolio-card">
-        <div class="property-abbreviation"></div>
-        <div class="property-details">
-          <p><strong>🏷️ AN02</strong></p>
-          <p><strong>🗓️ 18.04.2025</strong></p>
-          <p><strong>📊 50%</strong></p>
-          <p><strong>⏳ in Renovierung</strong></p>
-          <p><strong>🏦 1/240</strong></p>
-          <p><strong>🛒 15.000€</strong></p>
-          <p><strong>🪙 2.426,65€</strong></p>
-        </div>
-      </div>
-      <div class="portfolio-card">
-        <div class="property-abbreviation"></div>
-        <div class="property-details">
-          <p><strong>🏷️ </strong></p>
-          <p><strong>🗓️ </strong></p>
-          <p><strong>📊 </strong></p>
-          <p><strong>⏳ </strong></p>
-          <p><strong>🏦 </strong></p>
-          <p><strong>🛒 </strong></p>
-          <p><strong>🪙 </strong></p>
-        </div>
-      </div>
-    </div>
-  </main>
-
+    </main>
   </div>
 
   <script>
