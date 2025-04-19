@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BrickShare – Start</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: #1e1e1e;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .login-button {
+      background-color: #3c3c3c;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-button:hover {
+      background-color: #505050;
+      transform: scale(1.05);
+    }
+
+    .logo {
+      font-size: 50px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🏢</div>
+    <h1>Willkommen bei BrickShare</h1>
+    <button class="login-button" onclick="location.href='https://wecker69.github.io/BrickShare/dashboard'">
+      ➤ Anmelden
+    </button>
+  </div>
+</body>
+</html>
