@@ -95,10 +95,43 @@
       font-weight: bold;
       box-shadow: 0 1px 5px rgba(0,0,0,0.2);
       transition: background-color 0.2s ease;
+      animation: flyInFromBottom 0.6s ease-out forwards;
+      opacity: 0; /* Start opacity auf 0 setzen */
     }
 
     .portfolio-card:hover {
       background-color: #3c3c3c;
+    }
+
+    @keyframes flyInFromBottom {
+      from {
+        transform: translateY(20px); /* Leicht von unten */
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .property-abbreviation {
+      font-size: 2rem;
+      margin-right: 15px;
+    }
+
+    .property-details {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 20px;
+    }
+
+    .detail {
+      display: flex;
+      align-items: center;
+    }
+
+    .detail strong {
+      margin-right: 5px;
     }
   </style>
 </head>
@@ -128,83 +161,59 @@
 
     <main id="content">
     
-    <style>
-    .portfolio-card {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 5px;
-    }
-
-    .property-abbreviation {
-      font-size: 2rem;
-      margin-right: 15px;
-    }
-
-    .property-details {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 20px;
-    }
-
-    .detail {
-      display: flex;
-      align-items: center;
-    }
-
-    .detail strong {
-      margin-right: 5px;
-    }
-  </style>
-    
-  <div id="portfolio" class="panel active">
-    <h2>📈 Portfolio</h2>
-    <div class="portfolio-card">
-      <div class="property-abbreviation"></div>
-      <div class="property-details">
-        <p><strong>🏷️ SN01</strong></p>
-		<p><strong>🗓️ 13.04.2025</strong></p>
-		<p><strong>📊 100%</strong></p>
-		<p><strong>⏳ vermietet</strong></p>
-		<p><strong>🏦 3/300</strong></p>
-		<p><strong>🛒 65.000€</strong></p>
-		<p><strong>🪙 273,17€</strong></p>
-
+    <div id="portfolio" class="panel active">
+      <h2>📈 Portfolio</h2>
+      <div class="portfolio-card">
+        <div class="property-abbreviation"></div>
+        <div class="property-details">
+          <p><strong>🏷️ SN01</strong></p>
+          <p><strong>🗓️ 13.04.2025</strong></p>
+          <p><strong>📊 100%</strong></p>
+          <p><strong>⏳ vermietet</strong></p>
+          <p><strong>🏦 3/300</strong></p>
+          <p><strong>🛒 65.000€</strong></p>
+          <p><strong>🪙 273,17€</strong></p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="property-abbreviation"></div>
+        <div class="property-details">
+          <p><strong>🏷️ AN02</strong></p>
+          <p><strong>🗓️ 18.04.2025</strong></p>
+          <p><strong>📊 50%</strong></p>
+          <p><strong>⏳ in Renovierung</strong></p>
+          <p><strong>🏦 1/240</strong></p>
+          <p><strong>🛒 15.000€</strong></p>
+          <p><strong>🪙 2.426,65€</strong></p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="property-abbreviation"></div>
+        <div class="property-details">
+          <p><strong>🏷️ </strong></p>
+          <p><strong>🗓️ </strong></p>
+          <p><strong>📊 </strong></p>
+          <p><strong>⏳ </strong></p>
+          <p><strong>🏦 </strong></p>
+          <p><strong>🛒 </strong></p>
+          <p><strong>🪙 </strong></p>
+        </div>
       </div>
     </div>
-    <div class="portfolio-card">
-      <div class="property-abbreviation"></div>
-      <div class="property-details">
-        <p><strong>🏷️ AN02</strong></p>
-		<p><strong>🗓️ 18.04.2025</strong></p>
-		<p><strong>📊 50%</strong></p>
-		<p><strong>⏳ in Renovierung</strong></p>
-		<p><strong>🏦 1/240</strong></p>
-		<p><strong>🛒 15.000€</strong></p>
-		<p><strong>🪙 2.426,65€</strong></p>
-      </div>
-    </div>
-    <!-- Die restlichen Karten (🏢3 bis 🏢10) bleiben unverändert -->
-    <div class="portfolio-card">
-      <div class="property-abbreviation"></div>
-      <div class="property-details">
-        <p><strong>🏷️ </strong></p>
-		<p><strong>🗓️ </strong></p>
-		<p><strong>📊 </strong></p>
-		<p><strong>⏳ </strong></p>
-		<p><strong>🏦 </strong></p>
-		<p><strong>🛒 </strong></p>
-		<p><strong>🪙 </strong></p>
-      </div>
-    </div>
-  </div>
-</main>
+  </main>
 
   </div>
 
   <script>
+    // JavaScript zur Automatisierung der Verzögerung
+    window.addEventListener('DOMContentLoaded', () => {
+      const portfolioCards = document.querySelectorAll('.portfolio-card');
+      portfolioCards.forEach((card, index) => {
+        const delay = index * 0.1; // Verzögerung in 0.3s-Schritten
+        card.style.animationDelay = `${delay}s`;
+      });
+    });
+
     function showPanel(id) {
       document.querySelectorAll('.panel').forEach(panel => {
         panel.classList.remove('active');
