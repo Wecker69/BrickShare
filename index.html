@@ -91,7 +91,7 @@
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       gap: 20px;
-      height: calc(100vh - 120px); /* Höhe anpassen: Header + Padding */
+      height: 60vh; /* kleinere Höhe */
     }
 
     .dashboard-card {
@@ -100,11 +100,12 @@
       justify-content: center;
       align-items: center;
       border-radius: 10px;
-      font-size: 22px;
+      font-size: 20px; /* kleinere Schrift */
       font-weight: bold;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       transition: transform 0.2s ease, background-color 0.3s ease;
       cursor: pointer;
+      min-height: 100px; /* optionale Mindesthöhe */
     }
 
     .dashboard-card:hover {
