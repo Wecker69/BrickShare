@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ImmoShare Verwaltung</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #2c2c2c;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover {
+      color: #4caf50;
+    }
+
+    #main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #sidebar {
+      width: 200px;
+      background-color: #1e1e1e;
+      padding: 20px 10px;
+      overflow-y: auto;
+      border-right: 1px solid #444;
+    }
+
+    #sidebar h1 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4caf50;
+    }
+
+    .menu-button {
+      width: 100%;
+      background-color: #464646;
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .menu-button:hover {
+      background-color: #5c5c5c;
+      transform: translateX(3px);
+    }
+
+    #content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .panel {
+      display: none;
+      height: 100%;
+    }
+
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .dashboard-card {
+      background-color: #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .dashboard-card:hover {
+      background-color: #3c3c3c;
+      transform: scale(1.04);
+    }
+
+    .dashboard-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #81c784;
+    }
+
+    .dashboard-card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .dashboard-card .emoji {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#">📋 Menü</a>
+      <a href="#">🏢 Immobilien verwalten</a>
+      <a href="#" onclick="window.open('https://outlook.office.com')">📨 Outlook</a>
+      <a href="#">❓ Hilfe</a>
+    </nav>
+  </header>
+
+  <div id="main">
+    <aside id="sidebar">
+      <h1>🏢 ImmoShare</h1>
+      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/dashboard'">🏠 Dashboard</button>
+      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/portfolio'">📈 Portfolio</button>
+      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/immobilien'">🏢 Immobilien</button>
+      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/statistiken'">📊 Statistiken</button>
+      <button class="menu-button" onclick="showPanel('rechner')">💰 Rechner</button>
+      <button class="menu-button" onclick="showPanel('termine')">📅 Mitteilungen</button>
+      <button class="menu-button" onclick="showPanel('vertraege')">📃 Verträge</button>
+      <button class="menu-button" onclick="showPanel('einstellungen')">⚙️ Einstellungen</button>
+    </aside>
+
+    <main id="content">
+      <div id="statistiken" class="panel active">
+        <h2>📊 Statistiken</h2>
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <h3><span class="emoji">👤</span> Eigene</h3>
+            <p>Investiert: 24.000 €</p>
+            <p>Beteiligungen: 2</p>
+            <p>Wertanteil: 65.000 €</p>
+          </div>
+          <div class="dashboard-card">
+            <h3><span class="emoji">🏢</span> Gesamt</h3>
+            <p>Portfolio-Wert: 130.000 €</p>
+            <p>Immobilien: 4</p>
+            <p>Investoren: 16</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function showPanel(id) {
+      document.querySelectorAll('.panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
