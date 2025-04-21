@@ -19,65 +19,16 @@
       flex-direction: column;
     }
 
-    header {
-      background-color: #2c2c2c;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    header nav a {
-      color: white;
-      text-decoration: none;
-      margin-right: 15px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    header nav a:hover {
-      color: #4caf50;
-    }
-
     #main {
       display: flex;
       flex: 1;
       overflow: hidden;
     }
 
-    #sidebar {
+    #sidebar-container {
       width: 200px;
       background-color: #1e1e1e;
-      padding: 20px 10px;
-      overflow-y: auto;
       border-right: 1px solid #444;
-    }
-
-    #sidebar h1 {
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 20px;
-      color: #4caf50;
-    }
-
-    .menu-button {
-      width: 100%;
-      background-color: #464646;
-      color: white;
-      border: none;
-      padding: 15px;
-      font-size: 16px;
-      margin-bottom: 10px;
-      text-align: left;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    .menu-button:hover {
-      background-color: #5c5c5c;
-      transform: translateX(3px);
     }
 
     #content {
@@ -166,27 +117,12 @@
 </head>
 <body>
 
-  <header>
-    <nav>
-      <a href="#">📋 Menü</a>
-      <a href="#">🏢 Immobilien verwalten</a>
-      <a href="#" onclick="window.open('https://outlook.office.com')">📨 Outlook</a>
-      <a href="#">❓ Hilfe</a>
-    </nav>
-  </header>
+  <!-- Header wird geladen -->
+  <div id="header-container"></div>
 
   <div id="main">
-    <aside id="sidebar">
-      <h1>🏢 ImmoShare</h1>
-      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/dashboard'">🏠 Dashboard</button>
-      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/portfolio'">📈 Portfolio</button>
-      <button class="menu-button" onclick="window.location.href='https://wecker69.github.io/BrickShare/immobilien'">🏢 Immobilien</button>
-      <button class="menu-button" onclick="showPanel('statistiken')">📊 Statistiken</button>
-      <button class="menu-button" onclick="showPanel('rechner')">💰 Rechner</button>
-      <button class="menu-button" onclick="showPanel('termine')">📅 Mitteilungen</button>
-      <button class="menu-button" onclick="showPanel('vertraege')">📃 Verträge</button>
-      <button class="menu-button" onclick="showPanel('einstellungen')">⚙️ Einstellungen</button>
-    </aside>
+    <!-- Sidebar wird geladen -->
+    <div id="sidebar-container"></div>
 
     <main id="content">
       <div id="dashboard" class="panel active">
@@ -202,7 +138,7 @@
             <p>Status: Admin</p>
           </div>
           <div class="dashboard-card">
-            <h3><span class="emoji">📈</span> Portfolio</h3>	  	
+            <h3><span class="emoji">📈</span> Portfolio</h3>
             <p>Gesamtwert: 130.000€</p>
             <p>Investiert: 24.000€</p>
             <p>Beteiligungen: 2</p>
@@ -230,6 +166,21 @@
         target.classList.add('active');
       }
     }
+
+    // Header und Sidebar laden
+    window.addEventListener('DOMContentLoaded', () => {
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-container').innerHTML = data;
+        });
+
+      fetch('sidebar.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('sidebar-container').innerHTML = data;
+        });
+    });
   </script>
 </body>
 </html>
