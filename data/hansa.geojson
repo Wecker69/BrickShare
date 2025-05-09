@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "properties": {
+          "beschriftung": " n öjn"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.379631,
+            52.523914
+          ]
+        }
+      }
+    }
+  ]
+}
