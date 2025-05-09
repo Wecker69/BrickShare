@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo-Aufzugsstrecke</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Leaflet Draw -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw/dist/leaflet.draw.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-draw/dist/leaflet.draw.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      height: 50px;
+      background-color: #1e1e2f;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      justify-content: space-between;
+    }
+
+    header .left, header .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header button {
+      background: #3a3a4f;
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    header button:hover {
+      background: #555577;
+    }
+
+    #sidebar {
+      width: 250px;
+      background: #f5f5f5;
+      height: calc(100vh - 50px);
+      position: fixed;
+      top: 50px;
+      left: 0;
+      padding: 20px 15px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+      border-right: 1px solid #ddd;
+    }
+
+    #sidebar.collapsed {
+      transform: translateX(-250px);
+    }
+
+    #map {
+      height: calc(100vh - 50px);
+      margin-left: 250px;
+      transition: margin-left 0.3s ease;
+    }
+
+    #map.collapsed {
+      margin-left: 0;
+    }
+
+    .sidebar-section {
+      margin-bottom: 20px;
+    }
+
+    .sidebar-section h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #333;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px;
+    }
+
+    .sidebar-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: none;
+      background: #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .sidebar-button:hover {
+      background: #ccc;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="left">
+      <button onclick="toggleSidebar()">☰</button>
+      <span><strong>Demo-Aufzugsstrecke</strong></span>
+    </div>
+    <div class="right">
+      <button onclick="exportGeoJSON()">📤 Speichern</button>
+      <label for="file-upload" style="cursor:pointer;">
+        <button>📥 Hochladen</button>
+      </label>
+      <input type="file" id="file-upload" accept=".geojson,application/json" />
+    </div>
+  </header>
+
+  <div id="sidebar">
+    <div class="sidebar-section">
+      <h3>Aktionen</h3>
+      <button class="sidebar-button" onclick="exportGeoJSON()">📤 Speichern (GeoJSON)</button>
+      <label for="file-upload-sidebar" class="sidebar-button">
+        📥 Hochladen (GeoJSON)
+      </label>
+      <input type="file" id="file-upload-sidebar" accept=".geojson,application/json" />
+    </div>
+    <div class="sidebar-section">
+      <h3>Info</h3>
+      <p>Diese Anwendung ermöglicht das Zeichnen und Speichern von Punkten und Linien auf der Karte.</p>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const mapDiv = document.getElementById("map");
+      sidebar.classList.toggle("collapsed");
+      mapDiv.classList.toggle("collapsed");
+    }
+
+    const map = L.map('map').setView([52.52, 13.405], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap-Mitwirkende'
+    }).addTo(map);
+
+    const drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    const drawControl = new L.Control.Draw({
+      draw: {
+        polygon: false,
+        rectangle: false,
+        circle: false,
+        circlemarker: false,
+        marker: true,
+        polyline: {
+          shapeOptions: {
+            color: 'red'
+          }
+        }
+      },
+      edit: {
+        featureGroup: drawnItems
+      }
+    });
+    map.addControl(drawControl);
+
+    map.on(L.Draw.Event.CREATED, function (event) {
+      const layer = event.layer;
+
+      if (event.layerType === 'marker') {
+        const beschriftung = prompt("Beschriftung für diesen Punkt:");
+        if (beschriftung) {
+          layer.bindTooltip(beschriftung, { permanent: true, direction: 'right' }).openTooltip();
+          layer.feature = { properties: { beschriftung: beschriftung } };
+        }
+      }
+
+      drawnItems.addLayer(layer);
+    });
+
+    function exportGeoJSON() {
+      const geojson = drawnItems.toGeoJSON();
+      const datenStr = JSON.stringify(geojson, null, 2);
+      const blob = new Blob([datenStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "demo_strecke.geojson";
+      a.click();
+    }
+
+    function importGeoJSON(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const geojson = JSON.parse(e.target.result);
+        const layer = L.geoJSON(geojson, {
+          onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.beschriftung) {
+              layer.bindTooltip(feature.properties.beschriftung, { permanent: true, direction: 'right' }).openTooltip();
+            }
+          }
+        });
+        drawnItems.addLayer(layer);
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById("file-upload").addEventListener("change", function () {
+      if (this.files[0]) importGeoJSON(this.files[0]);
+    });
+
+    document.getElementById("file-upload-sidebar").addEventListener("change", function () {
+      if (this.files[0]) importGeoJSON(this.files[0]);
+    });
+  </script>
+
+</body>
+</html>
